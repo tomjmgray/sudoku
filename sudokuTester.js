@@ -336,7 +336,7 @@ $(document).ready(() => {
                     board.append(`<span class="square x${xI} y${yI} hard${i}" id="${xI}-${yI}" style="width:${squareWidth}px; height:${squareWidth}px;">${i}</span>`)
 
                 } else {
-                    board.append(`<input class="square x${xI} y${yI} soft0 sqr-input" style="width:${squareWidth}px; height:${squareWidth}px; "></input>`)
+                    board.append(`<input ${windowWidth < 600?'readonly="readonly"':''} class="square x${xI} y${yI} soft0 sqr-input" style="width:${squareWidth}px; height:${squareWidth}px; "></input>`)
                 }
             })
         });
