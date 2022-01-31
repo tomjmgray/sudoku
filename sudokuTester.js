@@ -358,7 +358,7 @@ $(document).ready(() => {
         }, 1000);
 
         $('#start').addClass('hidden');
-        // $('#flag').removeClass('hidden');
+        $('#validate').removeClass('hidden');
         $('#restart').removeClass('hidden');
     }
 
@@ -368,6 +368,8 @@ $(document).ready(() => {
         sec = 0;
         min = 0;
         $('#board').empty();
+        activeNumber = 0;
+        $('.selectedNum').removeClass('selectedNum');
         start();
     })
 
@@ -474,6 +476,7 @@ $(document).on('click', '.num-btn', (e) => {
         $(`.hard${num}, .soft${num}`).removeClass('selectedNum');
         activeNumber = 0;
     } else {
+        $('.selectedNum').removeClass('selectedNum')
         tar.addClass('selectedNum');
         activeNumber = num
         $(`.hard${num}, .soft${num}.sqr-input`).addClass('selectedNum');
@@ -489,6 +492,7 @@ $(document).on('click', 'span', (e) => {
         $(`.hard${num}, .soft${num}, #${num}btn`).removeClass('selectedNum');
         activeNumber = 0;
     } else {
+        $('.selectedNum').removeClass('selectedNum')
         tar.addClass('selectedNum');
         activeNumber = num
         $(`.hard${num}, .soft${num}.sqr-input, #${num}btn`).addClass('selectedNum');
