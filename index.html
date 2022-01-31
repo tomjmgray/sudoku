@@ -3,9 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <title>Document</title>
 </head>
 <body>
-    <script src="./sudokuTester.js"></script>
+    <header>
+        
+        <h1>SUDOKU</h1>
+        <nav class="settings">
+            
+                   
+                    
+                        
+                    
+
+                    <div class="btn-holder">
+                        <button id="easy">Easy</button>
+                        <button id="medium" class="on">Medium</button>
+                        <button id="hard">Hard</button>
+                        <button id="insane">Insane</button>
+                    </div>
+                    
+                    
+           
+                
+
+                
+
+            
+            
+        </nav>
+    </header>
+        
+    <main>
+        <div class="board-cont">
+            <div class="btn-holder" id="start-box">
+                <button id="start">Start</button>
+                
+                <button class="hidden" id="restart">Restart</button>
+            </div>
+            <div class="timer">
+                <span id="min">0</span>:
+                <span id="sec">0</span>
+            </div>
+            
+            <div id="board">
+            
+            </div> 
+            <div id="num-selector">
+                <button id="1btn" class="num-btn">1</button>
+                <button id="2btn" class="num-btn">2</button>
+                <button id="3btn" class="num-btn">3</button>
+                <button id="4btn" class="num-btn">4</button>
+                <button id="5btn" class="num-btn">5</button>
+                <button id="6btn" class="num-btn">6</button>
+                <button id="7btn" class="num-btn">7</button>
+                <button id="8btn" class="num-btn">8</button>
+                <button id="9btn" class="num-btn">9</button>
+            </div>
+            <button id="validate">Check Your Answer</button>
+        </div>
+        <div class="column" id="color-picker">
+            <p>Pick a theme</p>
+            <div class="column">
+                <button id="Default">Default</button>
+                <button id="Dark">Dark</button>
+                <button id="Night">Night</button>
+                <button id="Random">Random</button>
+            </div>
+            
+        </div>
+    </main>
+
+  
+    
+        
+    
 </body>
+<script defer src="./sudokuTester.js"></script>
 </html>

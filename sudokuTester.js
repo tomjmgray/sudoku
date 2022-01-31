@@ -49,7 +49,7 @@ function validSolution(board){
             }
         })
     })
-    console.log(answer);
+    // console.log(answer);
     return answer
   }
 
@@ -234,7 +234,7 @@ function thinking() {
 
 
     }
-    console.log(board);
+    // console.log(board);
     // let numArr = [1,2,3,4,5,6,7,8,9]
     //         let randomIndex = Math.floor(Math.random() * numArr.length)
     //         let newNum = numArr.splice(randomIndex, 1);
@@ -258,9 +258,338 @@ function thinking() {
         });
         realBoard.push(newRow)
     });
-    console.table(realBoard);
-    console.log(validSolution(realBoard))
+    // console.table(realBoard);
+    return realBoard
+    // console.log(validSolution(realBoard))
 }
-thinking();
+// thinking();
 
 // stupidBruteForce();
+
+function removeSquare(arr) {
+    // console.table(arr);
+    let numArr = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+    let x = Math.floor(Math.random() * 9);
+    let y = Math.floor(Math.random() * 9);
+    // console.log(x, y);
+    // console.log(arr[x][y])
+    if (arr[x][y] !== 0) {
+        arr[x][y] = 0; 
+        return arr;
+    } else {
+        return removeSquare(arr)
+    }
+} 
+
+$(document).ready(() => {
+    let intervalVar;
+
+    let sec = 0;
+    let min = 0;
+    let windowWidth = $(window).width();
+    let windowHeight = $(window).height();
+    let activeNumber = 0;
+    let answer = [];
+    let mode = 'medium'
+   
+    let squareWidth 
+    let width = 9;
+    if (windowWidth < 600) {
+        squareWidth = ((300 / width) - (2 + (4/9))).toString();
+    } else if (windowWidth < 850) {
+        squareWidth = ((windowWidth / width) - (2 + (4/9))).toString
+    } else if (windowHeight > 900) {
+        squareWidth = ((900 / width) - (2 + (4/9))).toString();
+    } else {
+        squareWidth = (((windowHeight * 0.6) / width) - (2 + (4/9))).toString();
+    }
+
+    async function start() {
+        let solution = await thinking();
+        // console.log(solution, '******')
+        let display = solution;
+        const board = $('#board');
+        let removeNum;
+        switch (mode) {
+            case 'easy' :
+                removeNum = 30;
+                break
+            case 'medium' :
+                removeNum = 40;
+                break
+            case 'hard': 
+                removeNum = 50;
+                break
+            case 'insane':
+                removeNum = 60;
+                break
+
+        };
+        for (let i = 0; i < removeNum; i++) {
+            let newDisplay = removeSquare(display);
+            display = newDisplay;
+        };
+        
+        display.forEach((row, xI) => {
+            row.forEach((i, yI) => {
+                if ( i !== 0) {
+                    board.append(`<span class="square x${xI} y${yI} hard${i}" id="${xI}-${yI}" style="width:${squareWidth}px; height:${squareWidth}px;">${i}</span>`)
+
+                } else {
+                    board.append(`<input class="square x${xI} y${yI} soft0 sqr-input" style="width:${squareWidth}px; height:${squareWidth}px; "></input>`)
+                }
+            })
+        });
+
+        clearInterval(intervalVar);
+        intervalVar = ''
+        intervalVar = setInterval(()=> {
+            
+            sec += 1;
+            
+            if (sec === 60) {
+                sec -= 60;
+                min += 1;
+                
+            };
+            $('#sec').text(sec);
+            $(`#min`).text(min);
+            // $('#centSec').text(centSec)
+        }, 1000);
+
+        $('#start').addClass('hidden');
+        // $('#flag').removeClass('hidden');
+        $('#restart').removeClass('hidden');
+    }
+
+    $('#start').on('click', start);
+
+    $('#restart').on('click', (e) => {
+        sec = 0;
+        min = 0;
+        $('#board').empty();
+        start();
+    })
+
+    $('#easy').on('click', () => {
+        $('#width').val(10)
+        $('#bombs').val(10)
+        $('#easy').addClass('on');
+        $('#medium').removeClass('on');
+        $('#hard').removeClass('on');
+        $('#insane').removeClass('on');
+        mode = 'easy';
+    })
+    $('#medium').on('click', () => {
+        $('#width').val(20)
+        $('#bombs').val(40)
+        $('#easy').removeClass('on');
+        $('#medium').addClass('on');
+        $('#hard').removeClass('on');
+        $('#insane').removeClass('on');
+        mode = 'medium';
+    })
+    $('#hard').on('click', () => {
+        $('#width').val(30)
+        $('#bombs').val(400)
+        $('#easy').removeClass('on');
+        $('#medium').removeClass('on');
+        $('#hard').addClass('on');
+        $('#insane').removeClass('on');
+        mode = 'hard';
+    })
+    $('#insane').on('click', () => {
+        $('#width').val(50)
+        $('#bombs').val(1000)
+        $('#easy').removeClass('on');
+        $('#medium').removeClass('on');
+        $('#hard').removeClass('on');
+        $('#insane').addClass('on');
+        mode = 'insane';
+        // r = document.querySelector(':root')
+        
+        //     r.style.setProperty('--background', 'black');
+        //     r.style.setProperty('--font', 'red');
+        //     r.style.setProperty('--banner', 'black');
+            // r.style.setProperty('--light', 'black');
+        
+    })
+
+    $('#validate').on('click', (e) => {
+        e.preventDefault();
+        let answerArr = [];
+        for (let x = 0; x < 9; x++) {
+            let rowArr = [];
+            for (let y = 0; y < 9; y++) {
+                let tar = $(`.x${x}.y${y}`);
+                if (tar.hasClass('sqr-input')) {
+                    let numSoft = tar.val();
+                    rowArr.push(numSoft);
+                } else {
+                    let numHard = parseInt(tar.text(), 10);
+                    rowArr.push(numHard)
+                }
+            };
+            answerArr.push(rowArr);
+        };
+        if (validSolution(answerArr) !== false) {
+            clearInterval(intervalVar);
+            $('.board-cont').prepend(`<h2 id="loser">You win! Your time was ${min} minutes, ${sec} seconds! </h2>`)
+        }
+    })
+
+    // $('#validate').on('click', (e) => {
+    //     e.preventDefault();
+    //     let answerArr = [];
+    //     for (let x = 0; x < 9; x++) {
+    //         let rowArr = [];
+    //         for (let y = 0; y < 9; y++) {
+    //             let tar = $(`.x${x}.y${y}`);
+    //             if (tar.hasClass('sqr-input')) {
+    //                 let numSoft = tar.val();
+    //                 rowArr.push(numSoft);
+    //             } else {
+    //                 let numHard = parseInt(tar.text(), 10);
+    //                 rowArr.push(numHard)
+    //             }
+    //         };
+    //         answerArr.push(rowArr);
+    //     };
+    //     if (validSolution(answerArr) !== false) {
+    //         clearInterval(intervalVar);
+    //         $('.board-cont').prepend(`<h2 id="loser">You win! Your time was ${min} minutes, ${sec} seconds! </h2>`)
+    //     }
+    // })
+})
+
+$(document).on('click', '.num-btn', (e) => {
+    e.preventDefault();
+    
+    let tar = $(e.target);
+    let num = parseInt(tar.text(), 10);
+    let id = tar.attr('id');
+    console.log(num);
+    if (tar.hasClass('selectedNum')) {
+        tar.removeClass('selectedNum');
+        $(`.hard${num}, .soft${num}`).removeClass('selectedNum');
+        activeNumber = 0;
+    } else {
+        tar.addClass('selectedNum');
+        activeNumber = num
+        $(`.hard${num}, .soft${num}.sqr-input`).addClass('selectedNum');
+    }
+});
+
+$(document).on('click', 'span', (e) => {
+    let tar = $(e.target);
+    // let className = tar.attr('class');
+    let num = parseInt(tar.text(), 10)
+    if (tar.hasClass('selectedNum')) {
+        tar.removeClass('selectedNum');
+        $(`.hard${num}, .soft${num}, #${num}btn`).removeClass('selectedNum');
+        activeNumber = 0;
+    } else {
+        tar.addClass('selectedNum');
+        activeNumber = num
+        $(`.hard${num}, .soft${num}.sqr-input, #${num}btn`).addClass('selectedNum');
+    
+    }
+    
+})
+
+$(document).on('input', '.sqr-input', (e) => {
+    let tar = $(e.target);
+    // console.log(tar);
+    console.log(tar.attr('class'))
+
+    let num = tar.val();
+    activeNum = num;
+    // tar.addClass('activeNum');
+    tar.removeClass('soft0')
+    tar.removeClass('soft1')
+    tar.removeClass('soft2')
+    tar.removeClass('soft3')
+    tar.removeClass('soft4')
+    tar.removeClass('soft5')
+    tar.removeClass('soft6')
+    tar.removeClass('soft7')
+    tar.removeClass('soft8')
+    tar.removeClass('soft9')
+    tar.addClass(`soft${num} selectedNum`)
+    // tar.addClass('selectedNum')
+    console.log(tar.attr('class'))
+})
+
+$(document).on('click', '.sqr-input', (e) => {
+    let tar = $(e.target);
+    // console.log(tar);
+    console.log(activeNumber)
+    let num = activeNumber;
+    if (num !== 0 && !tar.hasClass(`soft${num}`)) {
+        console.log(num)
+        tar.addClass(`soft${num} selectedNum`)
+        // tar.parent().addClass(`soft${num}`)
+        // tar.addClass('selectedNum')
+        // tar.parent().addClass(`selectedNum`)
+        tar.val(num);
+        console.log(tar.attr('class'))
+    } else if (num == tar.val()) {
+        tar.val(null);
+        tar.removeClass(`soft${num}`);
+        tar.removeClass('selectedNum')
+    } else if (num === 0 && (tar.val() > 0)) {
+        let newActive = tar.val();
+        activeNumber = newActive;
+        $(`.hard${newActive}, .soft${newActive}.sqr-input, #${newActive}btn`).addClass('selectedNum');
+
+    }
+
+})
+
+
+
+$('#color-picker').on('click', 'button', (e) => {
+    e.preventDefault();
+    let id = $(e.target).attr('id');
+    r = document.querySelector(':root')
+    if (id === 'Default') {
+        r.style.setProperty('--background', 'white');
+        r.style.setProperty('--font', 'black');
+        r.style.setProperty('--banner', 'rgba(192 192 192)');
+        
+    } else if (id === 'Dark') {
+        r.style.setProperty('--background', '#222831');
+        r.style.setProperty('--font', '#EEEEEE');
+        r.style.setProperty('--banner', '#393E46');
+        
+    } else if (id === 'Night') {
+        r.style.setProperty('--background', '#041C32');
+        r.style.setProperty('--font', '#ECB365');
+        r.style.setProperty('--banner', '#04293A');
+      
+   
+    } 
+    else if (id === 'Random') {
+        let colorArr = [];
+
+        let arr = ['0','1','2','3','4','5','6','7',"8","9",'A','B','C','D','E','F']
+        for (let i = 0; i < 3; i++) {
+            let strArr = [];
+            for (let j = 0; j < 6; j++) {
+                let num = Math.floor(Math.random()*16);
+                strArr.push(arr[num])
+            };
+            let string = strArr.join('');
+            colorArr.push(string);
+        };
+        r.style.setProperty('--background', `#${colorArr[0]}`);
+        r.style.setProperty('--font', `#${colorArr[1]}`);
+        r.style.setProperty('--banner', `#${colorArr[2]}`);
+      
+     
+    } 
+
+    /// Handles number selector and hightlighting
+
+    
+})

@@ -1,0 +1,324 @@
+:root {
+    --color1: blue;
+    --color2: green;
+    --color3: red;
+    --color4: red;
+    --color5: red;
+    --color6: red;
+    --color7: red;
+    --color8: red;
+    --background: white;
+    --font: black;
+    --banner:rgba(192 192 192);
+    /* --light: lightgray; */
+}
+
+html {
+    width: 100vw;
+    margin: 0;
+    font-family: 'Roboto';
+}
+body {
+    width: 100vw;
+    margin: 0;
+    font-family: 'Roboto';
+}
+
+main {
+    width: 100%;
+   display: flex;
+   flex-direction: row;
+}
+
+body {
+    background-color: var(--background);
+    color: var(--font);
+}
+
+nav {
+    background-color: var(--banner);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-evenly;
+    padding: 15px;
+}
+
+nav div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+input, button {
+    background-color: var(--background);
+    border: none;
+    width: 60px;
+    text-align: center;
+    border: 2px solid;
+    color: var(--font);
+    border-color: var(--font);
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+  }
+
+.board-cont {
+    width: 80vw;
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+header {
+    background-color: var(--banner);
+    display: flex;
+    justify-content: space-between;
+    width: 100vw;
+}
+
+
+
+h1 {
+    margin: 30px 0 5px 30px;;
+}
+
+#board {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: var(--banner);
+    min-width: 300px;
+    min-height: 300px;
+    width: 60vh;
+    height: 60vh;
+    max-width: 540px;
+    max-height: 540px;
+    border: 3px solid;
+    border-color: var(--font);
+}
+
+.square {
+    opacity: 100;
+    z-index: 100;
+    border:  1px solid ;
+    border-color: var(--font);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 !important;
+    background-color: var(--background);
+}
+
+
+.unclicked {
+    background-color: var(--background);
+}
+
+/* .red {
+    background-color: var(--color8);
+} */
+
+.hidden {
+    display: none;
+}
+
+.flag svg {
+    fill: var(--font);
+}
+
+.flagIcon {
+    z-index: -100;
+}
+
+.bomb svg {
+    fill: var(--font);
+    padding: 3px;
+
+}
+
+
+
+.on {
+    background-color: var(--font);
+    color: var(--background);
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center
+}
+
+#color-picker {
+    position: absolute;
+    right: 20px;
+}
+
+#color-picker button {
+    margin-bottom: 10px; 
+}
+
+/* .sqr-input {
+    border: 0px;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+} */
+
+#Default {
+    background-color: 'white' !important;
+    color: 'black' !important;
+    border-color: rgba(192 192 192) !important;
+}
+
+#Dark {
+    background-color: #222831 !important;
+    color: #EEEEEE !important;
+    border-color: #393E46 !important;
+}
+
+#Night {
+    background-color: #041C32 !important;
+    color: #ECB365 !important;
+    border-color: #04293A !important;
+}
+
+.selectedNum {
+    background-color: var(--banner);
+}
+
+.x2, .x5, .x2.sqr-input, .x5.sqr-input {
+    border-bottom: 3px solid;
+    border-color: var(--font);
+}
+
+.y2, .y5 {
+    border-right: 3px solid;
+    border-color: var(--font);
+}
+
+.num-btn {
+    width: 6vh;
+    height: 6vh;
+    margin: 10px 5px;
+}
+
+#num-selector {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.square, .num-btn {
+    font-size: 16px;
+}
+
+#Random { 
+    
+  background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
+  background-size: 1800% 1800%;
+  
+  -webkit-animation: rainbow 18s ease infinite;
+  -z-animation: rainbow 18s ease infinite;
+  -o-animation: rainbow 18s ease infinite;
+    animation: rainbow 18s ease infinite;}
+  
+  @-webkit-keyframes rainbow {
+      0%{background-position:0% 82%}
+      50%{background-position:100% 19%}
+      100%{background-position:0% 82%}
+  }
+  @-moz-keyframes rainbow {
+      0%{background-position:0% 82%}
+      50%{background-position:100% 19%}
+      100%{background-position:0% 82%}
+  }
+  @-o-keyframes rainbow {
+      0%{background-position:0% 82%}
+      50%{background-position:100% 19%}
+      100%{background-position:0% 82%}
+  }
+  @keyframes rainbow { 
+      0%{background-position:0% 82%}
+      50%{background-position:100% 19%}
+      100%{background-position:0% 82%}
+  }
+
+
+
+
+@media only screen and (max-width:850px) {
+    header {
+        flex-direction: column;
+    }
+
+    #board {
+        
+        min-width: 300px;
+        min-height: 300px;
+        width: 50vw;
+        height: 50vw;
+        max-width: 540px;
+        max-height: 540px;
+        /* width: 60vh;
+        height: 60vh; */
+        border: 3px solid;
+        border-color: var(--font);
+    }
+
+    .num-btn {
+        width: 6vw;
+        height: 6vw;
+    }
+}
+
+@media only screen and (max-width:600px) {
+    nav {
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .input-holder {
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        margin-bottom: 20px;;
+    }
+    .btn-holder {
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+    }
+    #color-picker {
+        position: relative !important;
+        right: 0 !important;
+        /* flex-direction: row; */
+        align-items: center;
+    }
+    #color-picker button {
+        margin: 1em 10px;
+    }
+
+    #color-picker div {
+        flex-direction: row;
+    }
+}
