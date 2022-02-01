@@ -303,6 +303,8 @@ $(document).ready(() => {
     } else {
         squareWidth = (((windowHeight * 0.6) / width) - (2 + (4/9))).toString();
     }
+    console.log(windowWidth);
+    console.log(squareWidth)
 
     async function start() {
         let solution = await thinking();
@@ -531,6 +533,17 @@ $(document).on('click', '.sqr-input', (e) => {
     let num = activeNumber;
     if (num !== 0 && !tar.hasClass(`soft${num}`)) {
         console.log(num)
+        tar.removeClass('soft0')
+        tar.removeClass('soft1')
+        tar.removeClass('soft2')
+        tar.removeClass('soft3')
+        tar.removeClass('soft4')
+        tar.removeClass('soft5')
+        tar.removeClass('soft6')
+        tar.removeClass('soft7')
+        tar.removeClass('soft8')
+        tar.removeClass('soft9')
+        // tar.removeClass()
         tar.addClass(`soft${num} selectedNum`)
         // tar.parent().addClass(`soft${num}`)
         // tar.addClass('selectedNum')
