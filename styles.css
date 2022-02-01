@@ -61,7 +61,8 @@ input, button {
 
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
+    -webkit-appearance: none !important;
+    -webkit-border-radius: none !important;
   }
 
 .board-cont {
@@ -198,6 +199,7 @@ h1 {
 .x2, .x5, .x2.sqr-input, .x5.sqr-input {
     border-bottom: 3px solid;
     border-color: var(--font);
+    outline: none !important;
 }
 
 .y2, .y5 {
@@ -209,6 +211,7 @@ h1 {
     width: 6vh;
     height: 6vh;
     margin: 10px 5px;
+    padding: 0;
 }
 
 #num-selector {

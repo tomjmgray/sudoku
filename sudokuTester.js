@@ -531,7 +531,7 @@ $(document).on('click', '.sqr-input', (e) => {
     // console.log(tar);
     console.log(activeNumber)
     let num = activeNumber;
-    if (num !== 0 && !tar.hasClass(`soft${num}`)) {
+    if (num !== 0 && tar.hasClass(`soft0`)) {
         console.log(num)
         tar.removeClass('soft0')
         tar.removeClass('soft1')
@@ -550,11 +550,19 @@ $(document).on('click', '.sqr-input', (e) => {
         // tar.parent().addClass(`selectedNum`)
         tar.val(num);
         console.log(tar.attr('class'))
-    } else if (num == tar.val()) {
+    } else if (tar.hasClass(`soft${num}`) && tar.val() == activeNumber) {
+        console.log('BONG')
         tar.val(null);
         tar.removeClass(`soft${num}`);
-        tar.removeClass('selectedNum')
+        tar.removeClass('selectedNum');
+        tar.addClass('soft0')
     } else if (num === 0 && (tar.val() > 0)) {
+        let newActive = tar.val();
+        activeNumber = newActive;
+        $(`.hard${newActive}, .soft${newActive}.sqr-input, #${newActive}btn`).addClass('selectedNum');
+
+    } else {
+        $(`.selectedNum`).removeClass('selectedNum');
         let newActive = tar.val();
         activeNumber = newActive;
         $(`.hard${newActive}, .soft${newActive}.sqr-input, #${newActive}btn`).addClass('selectedNum');
