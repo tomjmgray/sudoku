@@ -362,6 +362,8 @@ $(document).ready(() => {
         $('#start').addClass('hidden');
         $('#validate').removeClass('hidden');
         $('#restart').removeClass('hidden');
+        $('#loser').remove();
+        activeNum = 0;
     }
 
     $('#start').on('click', start);
@@ -370,7 +372,7 @@ $(document).ready(() => {
         sec = 0;
         min = 0;
         $('#board').empty();
-        activeNumber = 0;
+        activeNum = 0;
         $('.selectedNum').removeClass('selectedNum');
         start();
     })
