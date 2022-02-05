@@ -299,7 +299,7 @@ $(document).ready(() => {
     } else if (windowWidth < 850) {
         squareWidth = ((windowWidth / width) - (2 + (4/9))).toString
     } else if (windowHeight > 900) {
-        squareWidth = ((900 / width) - (2 + (4/9))).toString();
+        squareWidth = ((540/ width) - (2 + (4/9))).toString();
     } else {
         squareWidth = (((windowHeight * 0.6) / width) - (2 + (4/9))).toString();
     }
